@@ -16,13 +16,37 @@ Please note that the registered endpoints including IANA are production endpoint
 
 All displayed data are presented under the respective disclaimers for the entities representing the endpoints.
 
+THe endpoints are by use the ones registered with IANA, which are requested by IANA when the application starts.
+
+Additional endpoint can be added for testing purposes etc. if you have RDAP endpoints not registered with IANA. Add these to the list in the `client.pl` file named: `unregistered_entries`.
+
+The structure should look as follow:
+
+```perl
+{
+    countrycode => 'xx',
+    url         => 'https://localhost:5000',
+    label       => 'unregistered sandbox',
+}
+```
+
+The `countrycode` is the based on [ISO 3166-1 Alpha 2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). You can non-existent countries, such entries are flagged in the client listing for easy identification.
+
+The `URL` has to point to a RDAP endpoint.
+
+The `label` can be used to comment on the entry with humanreadable strings like: test, sandbox, development etc. whatever assists in distinction between the manually added endpoints.
+
 ## Caching
 
-The client creates a directory in the application root folder called cache. The cache can be emptied/flushed by deleting the appropirate data in the cache, facilities to this via the client mighe be added in the future.
+The client creates a directory in the application root directory named `cache/`. The cache can be emptied/flushed by deleting the appropirate data in the cache, facilities to this via the client mighe be added in the future.
 
 ## Parameter Validation
 
 The client aims to be able to emulate different scenarios, such as sending no data, sending bad data, requesting non-existing objects etc. so no valid is performed on input data.
+
+## Logging
+
+Logging is done to the file `log/development.log`
 
 # USAGE
 
