@@ -43,6 +43,16 @@ Perl modules are used all available from CPAN. The exact list in available in th
 
 In addition to the above Perl modules, the client uses [Twitter Bootstrap](http://getbootstrap.com/) and hereby **jQuery**. These are automatically downloaded via CDNs and are not distributed with the client software. In addition [Prism](http://prismjs.com/index.html) is use and is included with the client as an asset.
 
+# SEE ALSO
+
+- [Protocol Registries with IANA](https://www.iana.org/protocols)
+- [Using RDAP as a Domain Availability Service](https://www.ietf.org/id/draft-newton-regext-rdap-domain-availability-00.txt)
+- [HTTP Usage in the Registration Data Access Protocol (RDAP)](https://tools.ietf.org/html/rfc7480)
+- [Registration Data Access Protocol (RDAP) Query Format](https://tools.ietf.org/html/rfc7482)
+- [JSON Responses for the Registration Data Access Protocol (RDAP)](https://tools.ietf.org/html/rfc7483)
+- [Finding the Authoritative Registration Data (RDAP) Service](https://tools.ietf.org/html/rfc7484)
+- [Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework](https://tools.ietf.org/html/rfc5890)
+
 # COPYRIGHT
 
 This software is under copyright by DK Hostmaster A/S 2017
