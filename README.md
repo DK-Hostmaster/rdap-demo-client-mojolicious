@@ -8,6 +8,22 @@ DK Hostmaster RDAP demo client
 
 This documentation describes version 0.0.1
 
+# INTRODUCTION
+
+This client demonstrates fetching and caching the listing of available RDAP endpoints in the DNS category and offers querying of these.
+
+Please note that the registered endpoints including IANA are production endpoints, unless specified, and should be treated as such. 
+
+All displayed data are presented under the respective disclaimers for the entities representing the endpoints.
+
+## Caching
+
+The client creates a directory in the application root folder called cache. The cache can be emptied/flushed by deleting the appropirate data in the cache, facilities to this via the client mighe be added in the future.
+
+## Parameter Validation
+
+The client aims to be able to emulate different scenarios, such as sending no data, sending bad data, requesting non-existing objects etc. so no valid is performed on input data.
+
 # USAGE
 
     $ morbo -l https://*:3000 client.pl
