@@ -47,11 +47,11 @@ In addition to the above Perl modules, the client uses [Twitter Bootstrap](http:
 
 - [Protocol Registries with IANA](https://www.iana.org/protocols)
 - [Using RDAP as a Domain Availability Service](https://www.ietf.org/id/draft-newton-regext-rdap-domain-availability-00.txt)
-- [HTTP Usage in the Registration Data Access Protocol (RDAP)](https://tools.ietf.org/html/rfc7480)
-- [Registration Data Access Protocol (RDAP) Query Format](https://tools.ietf.org/html/rfc7482)
-- [JSON Responses for the Registration Data Access Protocol (RDAP)](https://tools.ietf.org/html/rfc7483)
-- [Finding the Authoritative Registration Data (RDAP) Service](https://tools.ietf.org/html/rfc7484)
-- [Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework](https://tools.ietf.org/html/rfc5890)
+- [RFC:7480: HTTP Usage in the Registration Data Access Protocol (RDAP)](https://tools.ietf.org/html/rfc7480)
+- [RFC:7482: Registration Data Access Protocol (RDAP) Query Format](https://tools.ietf.org/html/rfc7482)
+- [RFC:7483: JSON Responses for the Registration Data Access Protocol (RDAP)](https://tools.ietf.org/html/rfc7483)
+- [RFC:7484: Finding the Authoritative Registration Data (RDAP) Service](https://tools.ietf.org/html/rfc7484)
+- [RFC:5890: Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework](https://tools.ietf.org/html/rfc5890)
 
 # COPYRIGHT
 
