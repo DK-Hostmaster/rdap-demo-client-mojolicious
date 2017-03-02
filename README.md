@@ -36,6 +36,8 @@ The `URL` has to point to a RDAP endpoint.
 
 The `label` can be used to comment on the entry with humanreadable strings like: test, sandbox, development etc. whatever assists in distinction between the manually added endpoints.
 
+The client is currently limited to nameserver queries, support for entities and domain names is expected to be added shortly.
+
 ## Caching
 
 The client creates a directory in the application root directory named `cache/`. The cache can be emptied/flushed by deleting the appropirate data in the cache, facilities to this via the client mighe be added in the future.
