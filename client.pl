@@ -333,6 +333,12 @@ helper _request => sub {
         $self->stash($error_label_code => $response->code);
         $self->stash($sub_request_status => 'Error');
 
+        # Extract the actual body of the response (JSON)
+        # if the registry responsed with something propagatable
+        if ($response->body) {
+            $response_body = $response->body;
+        }
+
     # Redirect
     } elsif ($response->code and $response->code == 301) { 
         my $error_message = "We got redirected via URL: $url";
