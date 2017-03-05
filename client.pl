@@ -293,7 +293,7 @@ helper _request => sub {
     my $sub_request_status = $params->{sub_request_status};
 
     # Retrieving JSON data from designated URL
-    my $response = $ua->get($url)->res;
+    my $response = $ua->get($url => { Accept => 'application/rdap+json' })->res;
     my $response_body;
 
     # Success
