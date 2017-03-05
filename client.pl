@@ -24,7 +24,7 @@ Readonly::Scalar my $iana_url => 'https://data.iana.org/rdap/dns.json';
 Readonly::Array my @unregistered_entries => (
     { 
         countrycode => 'xx',
-        url         => 'https://localhost:5000',
+        url         => 'http://localhost:5000',
         label       => 'unregistered sandbox',
     },
 
@@ -331,6 +331,7 @@ helper _request => sub {
 
         $self->stash($error_label  => $error_message);
         $self->stash($error_label_code => $response->code);
+        $self->stash($sub_request_status => 'Error');
 
     # Redirect
     } elsif ($response->code and $response->code == 301) { 
@@ -391,15 +392,13 @@ __DATA__
 <% end %>
 
 <!-- IANA sub request error message and code if available -->
-% if (my $error_message = get_error('iana_sub_request_error')) {
-    % my $error_code = get_error('iana_sub_request_error_code');
-    <div class="alert alert-danger" role="alert"><%= $error_message %> <%= $error_code %></div>
+% if (my $error_message = get_error('iana_sub_request_error') and not get_error('iana_sub_request_status_error')) {
+    <div class="alert alert-danger" role="alert"><%= $error_message %></div>
 % }
 
 <!-- Registry sub request error message and code if available -->
-% if (my $error_message = get_error('registry_sub_request_status')) {
-    % my $error_code = get_error('registry_sub_request_error_code');
-    <div class="alert alert-danger" role="alert"><%= $error_message %> <%= $error_code %></div>
+% if (my $error_message = get_error('registry_sub_request_status') and not get_error('registry_sub_request_status_error')) {
+    <div class="alert alert-danger" role="alert"><%= $error_message %></div>
 % }
 
 <p>Demo client for the RDAP protocol. This client demonstrates fetching and caching the listing of available RDAP endpoints in the DNS
