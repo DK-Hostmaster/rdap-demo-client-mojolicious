@@ -433,7 +433,7 @@ category and offers querying of these.</p>
     <tr><th>Country</th><th>Country Code</th><th>URL</th></tr>
     % foreach my $c (sort keys %{$data_from_iana}) {
         % if (get_countryname($c) eq 'unknown') {
-            <tr><td class="danger"><%= get_countryname($c) %> <%== '('.$data_from_iana->{$c}->{label}.')' if ($data_from_iana->{$c}->{label}); %></td><td class="danger"><%= uc($c) %><td class="danger"><%= $data_from_iana->{$c}->{url} %></tr>
+            <tr><td class="warning"><%= get_countryname($c) %> <%== '('.$data_from_iana->{$c}->{label}.')' if ($data_from_iana->{$c}->{label}); %></td><td class="warning"><%= uc($c) %><td class="warning"><%= $data_from_iana->{$c}->{url} %></tr>
         % } else {
             <tr><td><%= get_countryname($c) %> <%== '('.$data_from_iana->{$c}->{label}.')' if ($data_from_iana->{$c}->{label}); %></td><td><%= uc($c) %><td><%= $data_from_iana->{$c}->{url} %></tr>
         % }

@@ -30,7 +30,7 @@ The structure should look as follow:
 }
 ```
 
-The `countrycode` is the based on [ISO 3166-1 Alpha 2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). You can non-existent countries, such entries are flagged in the client listing for easy identification.
+The `countrycode` is the based on [ISO 3166-1 Alpha 2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). You can list non-existent countries, such entries are flagged in the client listing as a warning for easy identification.
 
 The `URL` has to point to a RDAP endpoint.
 
