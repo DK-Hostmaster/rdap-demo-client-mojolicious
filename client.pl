@@ -11,7 +11,7 @@ use Data::Dumper;                           # Ref: https://metacpan.org/pod/Data
 use Locale::Codes::Country; # code2country  # Ref: https://metacpan.org/pod/distribution/Locale-Codes/lib/Locale/Country.pm
 use JSON::PP qw();                          # Ref: https://metacpan.org/pod/JSON::PP
 
-our $VERSION = '0.0.2';
+our $VERSION = '0.0.3';
 
 # Registration Data Access Protocol (RDAP)
 # Ref: https://www.iana.org/protocols
