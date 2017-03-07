@@ -33,6 +33,7 @@ Readonly::Array my @unregistered_entries => (
 
 Readonly::Array my @querytypes => (
     'nameserver',
+    'entity',
 );
 
 # Mojolicious::Plugin::AssetPack
@@ -46,9 +47,13 @@ helper prettify_json => sub {
 
     my $coder = JSON::PP->new->pretty->allow_nonref;
 
-    my $perl_scalar = $coder->decode( $json );
+    if ($json and $json ne '{}') {
+        my $perl_scalar = $coder->decode( $json );
 
-    return $coder->pretty->encode( $perl_scalar ); # pretty-printing
+        return $coder->pretty->encode( $perl_scalar ); # pretty-printing
+    } else {
+        return;
+    }
 };
 
 # Helper to resolve country name
@@ -397,6 +402,20 @@ __DATA__
   % }
 <% end %>
 
+<!-- block for RDAP events information -->
+<% my $events_block = begin %>
+  % my $events = shift;
+  % foreach my $event (@{$events}) {
+        <ul>
+        <li>eventAction: <%= $event->{eventAction} %></li>
+        <li>eventDate: <%= $event->{eventDate} %></li>
+        % if ($event->{eventActor}) {
+        <li>eventActor: <%= $event->{eventActor} %></li>
+        % }
+        </ul>
+  % }
+<% end %>
+
 <!-- block for RDAP conformance information -->
 <% my $rdapconformance_block = begin %>
   % my $rdapconformance = shift;
@@ -525,6 +544,8 @@ category and offers querying of these.</p>
     <tr><td>links</td><td><%= $links_block->($data_from_registry->{links}) %></td></tr>
     <tr><td>notices</td><td><%= $notices_block->($data_from_registry->{notices}) %></td></tr>
     <tr><td>rdapConformance</td><td><%= $rdapconformance_block->($data_from_registry->{rdapConformance}) %></td></tr>
+    <tr><td>events</td><td><%= $events_block->($data_from_registry->{events}) %></td></tr>
+    <tr><td>vCard</td><td><%= dumper $data_from_registry->{vcardArray} %></td></tr>
   </table>
 </div>
 
