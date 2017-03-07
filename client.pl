@@ -9,6 +9,7 @@ use Mojo::JSON qw(decode_json encode_json); # Ref: https://metacpan.org/pod/Mojo
 use HTTP::Date; # str2time                  # Ref: https://metacpan.org/pod/HTTP::Date
 use Data::Dumper;                           # Ref: https://metacpan.org/pod/Data::Dumper
 use Locale::Codes::Country; # code2country  # Ref: https://metacpan.org/pod/distribution/Locale-Codes/lib/Locale/Country.pm
+use JSON::PP qw();                          # Ref: https://metacpan.org/pod/JSON::PP
 
 our $VERSION = '0.0.1';
 
@@ -38,6 +39,16 @@ Readonly::Array my @querytypes => (
 # Ref: https://metacpan.org/pod/Mojolicious::Plugin::AssetPack
 plugin AssetPack => {
     pipes => [qw(Css JavaScript Combine)]
+};
+
+helper prettify_json => sub {
+    my ($c, $json) = @_;
+
+    my $coder = JSON::PP->new->pretty->allow_nonref;
+
+    my $perl_scalar = $coder->decode( $json );
+
+    return $coder->pretty->encode( $perl_scalar ); # pretty-printing
 };
 
 # Helper to resolve country name
@@ -196,6 +207,7 @@ get '/' => sub {
     # towards a registrys RDAP interface
 
     my $json_response_from_registry;
+    my $prettyfied_data_from_registry;
     my $response_code_from_registry;
     my $data_from_registry = {};
     my $registry_endpoint_url = '';
@@ -250,10 +262,6 @@ get '/' => sub {
         # Converting JSON data from registry to native data structure
         if ($json_response_from_registry) {
             $data_from_registry = decode_json($json_response_from_registry);
-
-            # HACK / TODO - basic attempt at prettifying JSON, more to come
-            $json_response_from_registry =~ s/([\{\[,])/$1\n\t/g;
-            $json_response_from_registry =~ s/([\}\]])/$1\n/g;
         }
 
     } else {
@@ -444,7 +452,7 @@ category and offers querying of these.</p>
 <p><button type="button" class="btn btn-link" id="hide_iana_response">Hide bootstrap JSON response</button> <button type="button" class="btn btn-link" id="show_iana_response">Show bootstrap JSON response</button></p>
 
 <div id="iana_response">
-<pre class="language-json"><code class="language-json"><%= $json_response_from_iana %></code></pre>
+<pre class="language-json"><code class="language-json"><%= prettify_json($json_response_from_iana) %></code></pre>
 </div>
 
 <br/>
@@ -523,7 +531,7 @@ category and offers querying of these.</p>
 <p><button type="button" class="btn btn-link" id="hide_registry_response">Hide registry JSON response</button> <button type="button" class="btn btn-link" id="show_registry_response">Show registry JSON response</button></p>
 
 <div id="registry_response">
-<pre class="language-json"><code class="language-json"><%= $json_response_from_registry %></code></pre>
+<pre class="language-json"><code class="language-json"><%= prettify_json($json_response_from_registry) %></code></pre>
 </div>
 
 @@ layouts/default.html.ep

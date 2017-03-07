@@ -6,3 +6,4 @@ requires 'Cwd';
 requires 'HTTP::Date';
 requires 'Mojolicious::Plugin::AssetPack';
 requires 'Locale::Codes'; # Locale::Codes::Country
+requires 'JSON::PP';
