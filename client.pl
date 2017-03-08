@@ -501,7 +501,11 @@ category and offers querying of these.</p>
     <label for="querytype">Querytype</label>
     <select class="form-control" name="querytype">
     % foreach my $qt (sort @{$querytypes}) {
+        % if ($qt eq $querytype) {
+        <option value="<%= $qt %>" selected><%= ucfirst $qt %></option>
+        % } else {
         <option value="<%= $qt %>"><%= ucfirst $qt %></option>
+        % }
     % } 
     </select>
     </div>
