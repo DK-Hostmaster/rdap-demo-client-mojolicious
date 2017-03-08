@@ -43,6 +43,14 @@ plugin AssetPack => {
     pipes => [qw(Css JavaScript Combine)]
 };
 
+helper prettify_perl => sub {
+    my ($c, $perl_scalar) = @_;
+
+    my $coder = JSON::PP->new->pretty->allow_nonref;
+
+    return $coder->pretty->encode( $perl_scalar );
+};
+
 helper prettify_json => sub {
     my ($c, $json) = @_;
 
@@ -51,7 +59,7 @@ helper prettify_json => sub {
     if ($json and $json ne '{}') {
         my $perl_scalar = $coder->decode( $json );
 
-        return $coder->pretty->encode( $perl_scalar ); # pretty-printing
+        return $coder->pretty->encode( $perl_scalar );
     } else {
         return;
     }
@@ -492,7 +500,7 @@ category and offers querying of these.</p>
     <div class="form-group">
     <label for="querytype">Querytype</label>
     <select class="form-control" name="querytype">
-    % foreach my $qt (sort @{$querytypes}) { 
+    % foreach my $qt (sort @{$querytypes}) {
         <option value="<%= $qt %>"><%= ucfirst $qt %></option>
     % } 
     </select>
@@ -546,7 +554,7 @@ category and offers querying of these.</p>
     <tr><td>notices</td><td><%= $notices_block->($data_from_registry->{notices}) %></td></tr>
     <tr><td>rdapConformance</td><td><%= $rdapconformance_block->($data_from_registry->{rdapConformance}) %></td></tr>
     <tr><td>events</td><td><%= $events_block->($data_from_registry->{events}) %></td></tr>
-    <tr><td>vCard</td><td><%= dumper $data_from_registry->{vcardArray} %></td></tr>
+    <tr><td>vCard</td><td><pre class="language-json"><code class="language-json"><%= prettify_perl($data_from_registry->{vcardArray}) %></code></pre></td></tr>
   </table>
 </div>
 
