@@ -32,8 +32,9 @@ Readonly::Array my @unregistered_entries => (
 );
 
 Readonly::Array my @querytypes => (
-    'nameserver',
+    'domain',
     'entity',
+    'nameserver',
 );
 
 # Mojolicious::Plugin::AssetPack
