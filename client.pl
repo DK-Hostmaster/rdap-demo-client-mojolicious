@@ -400,7 +400,7 @@ __DATA__
   % }
 <% end %>
 
-<!-- block for RDAP notices information -->
+<!-- block for RDAP notices/remarks information -->
 <% my $notices_block = begin %>
   % my $notices = shift;
   % foreach my $notice (@{$notices}) {
@@ -551,14 +551,27 @@ category and offers querying of these.</p>
   <table class="table table-striped table-condensed">
     <tr><th>Key</th><th>Value</th></tr>
     <tr><td>objectClassName</td><td><%= $data_from_registry->{objectClassName} %></td></tr>
+    % if ($data_from_registry->{ldhName}) {
     <tr><td>ldhName</td><td><%= $data_from_registry->{ldhName} %></td></tr>
+    % }
+    % if ($data_from_registry->{unicodeName}) {
     <tr><td>unicodeName</td><td><%= $data_from_registry->{unicodeName} %></td></tr>
+    % }
     <tr><td>handle</td><td><%= $data_from_registry->{handle} %></td></tr>
     <tr><td>links</td><td><%= $links_block->($data_from_registry->{links}) %></td></tr>
     <tr><td>notices</td><td><%= $notices_block->($data_from_registry->{notices}) %></td></tr>
+    <tr><td>remarks</td><td><%= $notices_block->($data_from_registry->{remarks}) %></td></tr>
     <tr><td>rdapConformance</td><td><%= $rdapconformance_block->($data_from_registry->{rdapConformance}) %></td></tr>
     <tr><td>events</td><td><%= $events_block->($data_from_registry->{events}) %></td></tr>
+    % # vCards for domain
+    % if ($data_from_registry->{entities}->[0]->{vcardArray}) {
+    <tr><td>vCard</td><td><pre class="language-json"><code class="language-json"><%= prettify_perl($data_from_registry->{entities}->[0]->{vcardArray}) %></code></pre></td></tr>
+    % }
+    % # vCards for entity
+    % if ($data_from_registry->{vcardArray}) {
     <tr><td>vCard</td><td><pre class="language-json"><code class="language-json"><%= prettify_perl($data_from_registry->{vcardArray}) %></code></pre></td></tr>
+    % }
+
   </table>
 </div>
 
