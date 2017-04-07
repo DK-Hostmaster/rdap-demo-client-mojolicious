@@ -35,6 +35,7 @@ Readonly::Array my @querytypes => (
     'domain',
     'entity',
     'nameserver',
+    'help',
 );
 
 # Mojolicious::Plugin::AssetPack
