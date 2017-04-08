@@ -52,21 +52,36 @@ Logging is done to the file `log/development.log`
 
 # USAGE
 
-    $ morbo -l https://*:3000 client.pl
+```bash
+$ morbo -l https://*:3000 client.pl
+```
 
-Open your browser at:
-
-    https://127.0.0.1:3000/
+Open your browser at: `https://127.0.0.1:3000/`
 
 ## Using `carton`
 
-    $ carton
-
-    $ carton exec -- morbo -l https://*:3000 client.pl
+```bash
+$ carton
+$ carton exec -- morbo -l https://*:3000 client.pl
+```
 
 Open your browser at:
 
     https://127.0.0.1:3000/
+
+## Using Docker
+
+The application can be used using `docker`
+
+```bash
+$ docker build -t rdap-demo-client .
+```
+
+```bash
+$ docker run --rm -p 3000:3000 --name rdap-demo-client rdap-demo-client 
+```
+
+Open your browser at: `https://localhost:3000/`
 
 # DEPENDENCIES
 
