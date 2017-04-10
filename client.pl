@@ -204,7 +204,7 @@ get '/' => sub {
     # emulate bad as well as good requests using this client
     my $countrycode = '';
     my $nameserver = '';
-    my $querytype;
+    my $querytype = '';
 
     if ($params->{nameserver}) {
         $nameserver = $params->{nameserver};
@@ -227,13 +227,34 @@ get '/' => sub {
     my $data_from_registry = {};
     my $registry_endpoint_url = '';
 
-    # We got countrycode and possibly nameserver parameters, meaning our form got submitted
-    if ($countrycode) {
+    # If we got parameters we proces
+    if (keys %{$params}) {
 
         $self->app->log->info('Handle possible Registry request');
 
-        $self->app->log->debug("received nameserver parameter: $nameserver");
-        $self->app->log->debug("received countrycode parameter: $countrycode");
+        if (not $countrycode) {
+            my $error_message = 'Country code parameter not specified';
+            $self->app->log->error($error_message);
+            $self->stash('registry_sub_request_status' => $error_message);
+        } else {
+            $self->app->log->debug("received countrycode parameter: $countrycode");    
+        }
+
+        if (not $nameserver) {
+            my $error_message = 'Nameserver parameter not specified';
+            $self->app->log->error($error_message);
+            $self->stash('registry_sub_request_status' => $error_message);
+        } else {
+            $self->app->log->debug("received nameserver parameter: $nameserver");
+        }
+
+        if (not $querytype) {
+            my $error_message = 'Querytype parameter not specified';
+            $self->app->log->error($error_message);
+            $self->stash('registry_sub_request_status' => $error_message);
+        } else {
+            $self->app->log->debug("received querytype parameter: $querytype");
+        }
 
         my $registry_url = $restructured_iana_data->{$countrycode}->{url};
 
@@ -278,11 +299,6 @@ get '/' => sub {
         if ($json_response_from_registry) {
             $data_from_registry = decode_json($json_response_from_registry);
         }
-
-    } else {
-        my $error_message = 'Country code parameter not specified';
-        $self->app->log->error($error_message);
-        $self->stash('registry_sub_request_status' => $error_message);
     }
 
     my @countrycodes = keys %{$restructured_iana_data}; 
