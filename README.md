@@ -6,7 +6,7 @@ DK Hostmaster RDAP demo client
 
 # VERSION
 
-This documentation describes version 0.0.1
+This documentation describes version 0.0.4
 
 # INTRODUCTION
 
