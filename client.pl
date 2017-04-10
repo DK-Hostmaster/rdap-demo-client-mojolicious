@@ -203,11 +203,11 @@ get '/' => sub {
     # Please be aware that no parameter validation is taking place, since we want to 
     # emulate bad as well as good requests using this client
     my $countrycode = '';
-    my $nameserver = '';
+    my $query = '';
     my $querytype = '';
 
-    if ($params->{nameserver}) {
-        $nameserver = $params->{nameserver};
+    if ($params->{query}) {
+        $query = $params->{query};
     }
 
     if ($params->{countrycode}) {
@@ -232,6 +232,7 @@ get '/' => sub {
 
         $self->app->log->info('Handle possible Registry request');
 
+        # Country code parameter handling
         if (not $countrycode) {
             my $error_message = 'Country code parameter not specified';
             $self->app->log->error($error_message);
@@ -240,12 +241,13 @@ get '/' => sub {
             $self->app->log->debug("received countrycode parameter: $countrycode");    
         }
 
-        if (not $nameserver) {
-            my $error_message = 'Nameserver parameter not specified';
+        # Query parameter handling (please note the exception for help)
+        if (not $query and $querytype ne 'help') {
+            my $error_message = 'Query parameter not specified';
             $self->app->log->error($error_message);
             $self->stash('registry_sub_request_status' => $error_message);
         } else {
-            $self->app->log->debug("received nameserver parameter: $nameserver");
+            $self->app->log->debug("received query parameter: $query");
         }
 
         if (not $querytype) {
@@ -261,11 +263,19 @@ get '/' => sub {
         $self->app->log->debug("Assembled registry URL: $registry_url");
 
         # Constructing URL based on parameter and designated endpoint
-        # Example: 
+        # Example 1: 
         # URL: https://rdap.nic.cz/nameserver/
         # Querytype: nameserver
         # Nameserver: a.ns.nic.cz
-        $registry_endpoint_url = $registry_url .'/'. $querytype .'/'. $nameserver;
+        # Example 2:
+        # URL: https://rdap.nic.cz/help
+        # Querytype: help
+        $registry_endpoint_url = $registry_url .'/'. $querytype;
+
+        # for generic queries
+        if ($query) {
+            $registry_endpoint_url .= '/'. $query;
+        }
 
         # Fetching possibly cached response from registry
         $json_response_from_registry = $cache->get($registry_endpoint_url);
@@ -309,10 +319,9 @@ get '/' => sub {
     $self->render('index',
         title                        => 'RDAP Demo Client',
         version                      => $VERSION,
-        query                        => $countrycode,
         querytype                    => $querytype,
         querytypes                   => \@querytypes,
-        nameserver                   => $nameserver, # nameserver parameter
+        query                        => $query, # query parameter
         countrycode                  => $countrycode, # country code parameter
         json_response_from_iana      => $json_response_from_iana, # original JSON response
         countrycodes                 => \@countrycodes, # country codes
@@ -510,8 +519,8 @@ category and offers querying of these.</p>
   <div class="panel-body">
 <form action="/" method="GET">
     <div class="form-group">
-    <label for="nameserver">Query</label>
-    <input type="text" placeholder="Nameserver / Domain name / Entity identifyer" class="form-control" name="nameserver" />
+    <label for="query">Query</label>
+    <input type="text" placeholder="Nameserver / Domain name / Entity identifyer" class="form-control" name="query" />
     </div>
 
     <div class="form-group">
@@ -553,7 +562,7 @@ category and offers querying of these.</p>
   </div>
   <div class="panel-body">
   <p>Request to: <code><%= $registry_endpoint_url %></code></p>
-  <p>For <%= $querytype %> value: <code><%= $nameserver %></code></p>
+  <p>For <%= $querytype %> value: <code><%= $query %></code></p>
   <p><i>Please note, not all data have necessarily been mapped to the table below. Please see the actual response via the available link, which discloses all data.</i></p>
 </i>
 % if (my $error_message = get_error('registry_sub_request_status_error')) {
@@ -656,7 +665,7 @@ category and offers querying of these.</p>
         $("#hide_registry_response").hide();
 
         // we have a query, so we show registry response
-        % if ($query) {
+        % if ($querytype) {
             $("#show_registry_response").show();
             $("#registry_data").show();    
     
