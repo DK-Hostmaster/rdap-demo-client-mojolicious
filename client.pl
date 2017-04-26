@@ -11,7 +11,7 @@ use Data::Dumper;                           # Ref: https://metacpan.org/pod/Data
 use Locale::Codes::Country; # code2country  # Ref: https://metacpan.org/pod/distribution/Locale-Codes/lib/Locale/Country.pm
 use JSON::PP qw();                          # Ref: https://metacpan.org/pod/JSON::PP
 
-our $VERSION = '0.0.4';
+our $VERSION = '0.0.5';
 
 # Registration Data Access Protocol (RDAP)
 # Ref: https://www.iana.org/protocols
@@ -25,7 +25,8 @@ Readonly::Scalar my $iana_url => 'https://data.iana.org/rdap/dns.json';
 Readonly::Array my @unregistered_entries => (
     { 
         countrycode => 'xx',
-        url         => 'http://localhost:5000',
+        url         => 'http://localhost:3000', # stand-alone
+        #url         => 'http://rdap-server:3000', # docker-compose
         label       => 'unregistered sandbox',
     },
 

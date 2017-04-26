@@ -6,7 +6,7 @@ DK Hostmaster RDAP demo client
 
 # VERSION
 
-This documentation describes version 0.0.4
+This documentation describes version 0.0.5
 
 # INTRODUCTION
 
@@ -53,21 +53,21 @@ Logging is done to the file `log/development.log`
 # USAGE
 
 ```bash
-$ morbo -l https://*:3000 client.pl
+$ morbo -l https://*:5000 client.pl
 ```
 
-Open your browser at: `https://127.0.0.1:3000/`
+Open your browser at: `https://127.0.0.1:5000/`
 
 ## Using `carton`
 
 ```bash
 $ carton
-$ carton exec -- morbo -l https://*:3000 client.pl
+$ carton exec -- morbo -l https://*:5000 client.pl
 ```
 
 Open your browser at:
 
-    https://127.0.0.1:3000/
+    https://127.0.0.1:5000/
 
 ## Using Docker
 
@@ -78,10 +78,10 @@ $ docker build -t rdap-demo-client .
 ```
 
 ```bash
-$ docker run --rm -p 3000:3000 --name rdap-demo-client rdap-demo-client 
+$ docker run --rm -p 5000:5000 --name rdap-demo-client rdap-demo-client 
 ```
 
-Open your browser at: `https://localhost:3000/`
+Open your browser at: `https://localhost:5000/`
 
 # DEPENDENCIES
 
