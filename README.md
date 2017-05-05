@@ -110,6 +110,8 @@ In addition to the above Perl modules, the client uses [Twitter Bootstrap](http:
 - [RFC:7484: Finding the Authoritative Registration Data (RDAP) Service](https://tools.ietf.org/html/rfc7484)
 - [RFC:5890: Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework](https://tools.ietf.org/html/rfc5890)
 
+- [Command line RDAP client](https://github.com/registrobr/rdap-client) implementation in Go
+
 # COPYRIGHT
 
 This software is under copyright by DK Hostmaster A/S 2017
