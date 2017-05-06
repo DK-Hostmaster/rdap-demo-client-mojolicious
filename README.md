@@ -20,7 +20,7 @@ THe endpoints are by use the ones registered with IANA, which are requested by I
 
 Additional endpoint can be added for testing purposes etc. if you have RDAP endpoints not registered with IANA. Add these to the list in the `client.pl` file named: `unregistered_entries`.
 
-The structure should look as follow:
+The structure should look as follows:
 
 ```perl
 {
