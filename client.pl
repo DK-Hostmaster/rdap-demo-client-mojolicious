@@ -24,12 +24,15 @@ Readonly::Scalar my $iana_url => 'https://data.iana.org/rdap/dns.json';
 # Add your own 
 Readonly::Array my @unregistered_entries => (
     { 
-        countrycode => 'xx',
+        countrycode => 'xx', # has to be unique
         url         => 'http://localhost:3000', # stand-alone
-        #url         => 'http://rdap-server:3000', # docker-compose
-        label       => 'unregistered sandbox',
+        label       => 'unregistered endpoint, stand-alone',
     },
-
+    { 
+        countrycode => 'xy', # has to be unique
+        url         => 'http://rdap-server:3000', # docker-compose
+        label       => 'unregistered endpoint, docker-compose',
+    },
 );
 
 Readonly::Array my @querytypes => (
